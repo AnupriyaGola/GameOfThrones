@@ -1,0 +1,72 @@
+<br>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          Search Name: <input type="text" [(ngModel)]="search" style="color:black">
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          View: <select [(ngModel)]="view">
+            <option value="" [selected]="" style="color: black">All</option>
+            <option value="characters"  style="color: black">Characters</option>
+            <option value="houses"  style="color: black">Houses</option>
+            <option value="books"  style="color: black">Books</option>
+          </select>
+        </div>
+      </div><br>
+ 
+  <div class="row" *ngIf="allData.length>0">
+
+     
+  
+    <div class="col-md-4" *ngFor="let data of allData | filter:search | select:view | sort ">
+      <div class="col-md-12" *ngIf="data.isbn">
+         <br>
+      <div class="card border-success bg-transparent">
+        
+        <div class="card-body">
+          <h5 class="card-title">Book name: {{data.name}}</h5><hr>
+          <p class="card-text">Author name: {{data.authors}}</p><hr>
+          <a [routerLink]="['/book',data.url.split('/').pop()]" class="btn btn-success">Know More</a>
+          
+        </div>
+      </div>
+    </div> <br/>
+
+    
+    <div class="col-md-12" *ngIf="data.region || data.coatOfArms">
+        
+  
+      <div class="card border-info bg-transparent">
+        
+        <div class="card-body">
+          <h5 class="card-title">House name: {{data.name}}</h5><hr>
+          <p>Region: {{data.region}}</p><hr>
+          <a [routerLink]="['/house',data.url.split('/').pop()]" class="btn btn-info">Know More</a>
+          <p class="card-text"></p>
+        </div>
+      </div>
+    </div><br>
+
+    
+    <div class="col-md-12" *ngIf="data.gender">
+        
+  
+      <div class="card border-danger bg-transparent">
+        
+        <div class="card-body">{{data.aliases}}<hr>
+          <h5 class="card-title">Character name: <span *ngIf="data.name; then ifblock else elseblock"></span><hr>
+            <ng-template #ifblock>{{data.name}}</ng-template>
+            <ng-template #elseblock>Not Available</ng-template>
+          </h5>
+          <p>Gender: {{data.gender}}</p><hr>
+          
+          <a [routerLink]="['/character',data.url.split('/').pop()]" class="btn btn-danger">Know More</a>
+          <p class="card-text"></p>
+          
+        </div>
+      </div>
+    </div><br>
+    </div>
+  </div>
+</div>

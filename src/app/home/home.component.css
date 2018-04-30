@@ -1,0 +1,15 @@
+.container{
+    background-image: url("back.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+}
+
+.card{
+    color: white;
+}
+
+.row{
+    color:white;
+}
